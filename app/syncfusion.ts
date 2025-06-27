@@ -1,0 +1,22 @@
+// src/lib/syncfusion.ts or any shared helper location
+
+// Correctly load CommonJS exports
+export async function setupSyncfusionLicense() {
+  const basePkg = await import('@syncfusion/ej2-base');
+  const { registerLicense } = basePkg;
+
+  if (registerLicense) {
+    registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY);
+  } else {
+    console.warn("registerLicense not found in ej2-base");
+  }
+}
+
+// syncfusion.ts
+export async function getSidebarComponent(): Promise<React.ComponentType<any>> {
+  const navPkg = await import('@syncfusion/ej2-react-navigations');
+  return navPkg.SidebarComponent;
+}
+
+
+
