@@ -10,6 +10,15 @@ import {
 import type { Route } from "./+types/root";
 import "./app.css";
 
+(async () => {
+  const pkg = await import("@syncfusion/ej2-base");
+  const registerLicense = (pkg as any).registerLicense;
+  if (registerLicense) {
+    registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY);
+  }
+})();
+
+
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
@@ -23,9 +32,8 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-import pkg from "@syncfusion/ej2-base";
-const { registerLicense } = pkg;
-registerLicense(import.meta.env.VITE_SYNCFUSION_LICENSE_KEY);
+
+
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
