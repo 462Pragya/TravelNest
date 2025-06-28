@@ -19,4 +19,16 @@ export async function getSidebarComponent(): Promise<React.ComponentType<any>> {
 }
 
 
+let chipPkg: any;
+
+export const getChipComponents = async () => {
+  if (!chipPkg) {
+    chipPkg = await import('@syncfusion/ej2-react-buttons');
+  }
+  return {
+    ChipListComponent: chipPkg.ChipListComponent,
+    ChipsDirective: chipPkg.ChipsDirective,
+    ChipDirective: chipPkg.ChipDirective,
+  };
+};
 
