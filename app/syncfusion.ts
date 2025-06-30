@@ -32,3 +32,13 @@ export const getChipComponents = async () => {
   };
 };
 
+let ButtonComponent: any = null;
+
+export const getButtonComponent = async () => {
+  if (!ButtonComponent) {
+    const pkg = await import("@syncfusion/ej2-react-buttons");
+    ButtonComponent = pkg.ButtonComponent;
+  }
+  return ButtonComponent;
+};
+

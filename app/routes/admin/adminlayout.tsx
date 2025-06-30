@@ -3,6 +3,28 @@ import { Outlet } from 'react-router';
 
 import { getSidebarComponent } from '~/syncfusion';
 import { NavItems , MobileSidebar } from '~/components';
+import { getExistingUser, storeUserData } from '~/appwrite/auth';
+import { account } from '~/appwrite/client';
+import { redirect } from 'react-router';
+
+    export async function clientLoader() {
+    try {
+        const user = await account.get();
+
+        if(!user.$id) return redirect('/sign-in');
+
+        const existingUser = await getExistingUser(user.$id);
+        if(existingUser?.status === 'user'){
+           return redirect('/');//normal user cant access dashboard only admin can
+        }
+
+        return existingUser?.$id ? existingUser : await storeUserData();
+    } catch (e) {
+        console.log('Error in clientloader', e)
+        return redirect('/sign-in')
+    }
+}
+
 
 const AdminLayout = () => {
 

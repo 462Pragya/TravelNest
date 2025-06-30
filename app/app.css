@@ -1257,3 +1257,10 @@ body {
   top: 45px;
   right: 40px;
 }
+
+/* Override Syncfusion's hover style */
+.e-btn:hover, .e-css.e-btn:hover  {
+  background-color: #2564ebc3 !important; /* Change to your desired color */
+  color: white !important;
+  border-color: #2564ebc6 !important;
+}

@@ -94,10 +94,11 @@ export const getUser = async () => {
             ]
 
         )
-
+          return documents.length > 0 ? documents[0] : redirect("/sign-in");
 
     } catch (e) {
         console.log(e);
+        return null;
     }
 }
 

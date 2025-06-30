@@ -6,15 +6,23 @@ import React from 'react'
 import { StatsCard, TripCard } from '~/components'
 import Header from '~/components/Header'
 import { dashboardStats, user, allTrips }  from '~/components'
-const Dashboard = () => {
+import { getUser } from '~/appwrite/auth'
+import type { Route } from './+types/dashboard'
 
+export const clientLoader = async () => await getUser();
+  // This function fetches the user data and returns it to the component.
+
+
+  // Simulating fetching dashboard stats and user data
+const Dashboard = ({loaderData} : Route.ComponentProps) => {
+    const user = loaderData as User | null;
 
   const { totalUsers, usersJoined, totalTrips, tripsCreated, userRole } = dashboardStats;
   return (
   <div>
     <main className='dashboard wrapper'>
       <Header
-      title={`Welconme ${user?.name ?? 'Guest'}`}
+      title={`Welcome ${user?.name ?? 'Guest'}`}
       description="Explore the latest features and updates in your dashboard."
        />
        <section className='flex flex-col gap-6'>
