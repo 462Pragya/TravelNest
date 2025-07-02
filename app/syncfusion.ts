@@ -42,3 +42,12 @@ export const getButtonComponent = async () => {
   return ButtonComponent;
 };
 
+import * as grids from '@syncfusion/ej2-react-grids';
+
+
+export const {
+  GridComponent,
+  ColumnsDirective,
+  ColumnDirective
+ 
+} = grids;
