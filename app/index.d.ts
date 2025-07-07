@@ -17,6 +17,7 @@ declare interface Country {
   name: string;
   coordinates: [number, number];
   value: string;
+  flag: string; // URL to the flag image
   openStreetMap?: string;
 }
 

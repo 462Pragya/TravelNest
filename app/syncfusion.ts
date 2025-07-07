@@ -42,6 +42,8 @@ export const getButtonComponent = async () => {
   return ButtonComponent;
 };
 
+
+
 import * as grids from '@syncfusion/ej2-react-grids';
 
 
@@ -51,3 +53,19 @@ export const {
   ColumnDirective
  
 } = grids;
+
+// syncfusion.ts
+
+import * as SyncfusionDropdowns from '@syncfusion/ej2-react-dropdowns';
+
+export const ComboBox = SyncfusionDropdowns.ComboBoxComponent;
+export const DropDownList = SyncfusionDropdowns.DropDownListComponent;
+
+
+// syncfusion.ts
+
+import * as Syncfusionmap from '@syncfusion/ej2-react-maps';
+
+export const MapsComponent = Syncfusionmap.MapsComponent;
+export const LayersDirective = Syncfusionmap.LayersDirective;
+export const LayerDirective = Syncfusionmap.LayerDirective;
