@@ -9,6 +9,7 @@ import { MapsComponent, LayersDirective, LayerDirective } from '~/syncfusion';
 import { world_map } from '~/constants/world_map';
 import { getButtonComponent } from '~/syncfusion';
 import { account } from '~/appwrite/client';
+import { Navigate, useNavigate } from 'react-router';
 
 export const loader = async () => {
 
@@ -19,7 +20,7 @@ export const loader = async () => {
           name: country.name.common,
           coordinates: country.latlng,
           value: country.name.common,
-          flag: country.flags?.svg || country.flags?.png || country.flags?.alt || '',
+          flag: country.flags?.svg || country.flags?.png || country.flags?.alt,
           openStreetMap: country.maps?.openStreetMap,
      }));
 
@@ -29,15 +30,17 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
 
 
      const countries = loaderData as Country[];
+     const navigate = useNavigate();
+
      const [formData, setFormData] = useState<{
-          country: { text: string; value: string; flag: string } | null;
+          country: { text: string; value: string; flag: string };
           travelStyle: string;
           interest: string;
           budget: string;
           duration: number;
           groupType: string;
      }>({
-          country: null,
+          country: { text: '', value: '', flag: '' },
           travelStyle: '',
           interest: '',
           budget: '',
@@ -76,8 +79,32 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
           }
 
           try {
-               console.log('User Data:', user);
-               console.log('Form Data:', formData);
+               const payload = {
+                    country: formData.country?.value,
+                   numberOfDays: formData.duration,
+                   travelStyle: formData.travelStyle,
+                   interests: formData.interest,
+                   budget: formData.budget,
+                   groupType: formData.groupType,
+                   userId: user.$id
+               };
+
+               console.log('Payload:', payload);
+
+               const response = await fetch('/api/create-trip', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+               });
+
+               if (!response.ok) {
+                    const text = await response.text(); // ← safe read
+                    throw new Error(`Server Error: ${text}`);
+               }
+
+               const result: CreateTripResponse = await response.json();
+               if (result?.id) navigate(`/trips/${result.id}`)
+               else console.error('Failed to generate a trip')
 
           } catch (e) {
                console.error('Error generating trip', e);
@@ -106,8 +133,8 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
                coordinates: countries.find((c) => c.name === formData.country?.value)?.coordinates || [],
           }]
           : [];
-     console.log("Selected Country (formData.country):", formData.country);
-     console.log("Map Data:", mapData);
+     // console.log("Selected Country (formData.country):", formData.country);
+     // console.log("Map Data:", mapData);
 
      const [ButtonComponent, setButtonComponent] = useState<any>(null);
 
@@ -130,7 +157,7 @@ const CreateTrip = ({ loaderData }: Route.ComponentProps) => {
                     description="View and edit AI generated travel plans"
                />
                <section className='mt-2.5 wrapper-md'>
-                    <form action="" className='trip-form' onSubmit={handleSubmit}>
+                    <form  className='trip-form' onSubmit={handleSubmit}>
                          <div >
                               <label htmlFor="country">
                                    Country
