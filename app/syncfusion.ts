@@ -69,3 +69,12 @@ import * as Syncfusionmap from '@syncfusion/ej2-react-maps';
 export const MapsComponent = Syncfusionmap.MapsComponent;
 export const LayersDirective = Syncfusionmap.LayersDirective;
 export const LayerDirective = Syncfusionmap.LayerDirective;
+
+
+
+// syncfusion.ts
+import * as pkg from '@syncfusion/ej2-react-buttons';
+
+export const ChipListComponent = pkg.ChipListComponent;
+export const ChipsDirective = pkg.ChipsDirective;
+export const ChipDirective = pkg.ChipDirective;
