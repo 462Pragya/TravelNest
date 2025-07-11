@@ -64,7 +64,12 @@ export const getGooglePicture = async (accessToken: String) => {
 
 export const loginWithGoogle = async () => {
     try {
-        account.createOAuth2Session(OAuthProvider.Google)
+        account.createOAuth2Session(
+            OAuthProvider.Google,
+            `${window.location.origin}/`,
+            `${window.location.origin}/404`
+
+        )
 
     } catch (e) {
         console.log('loginWithGoogle', e);
@@ -94,7 +99,7 @@ export const getUser = async () => {
             ]
 
         )
-          return documents.length > 0 ? documents[0] : redirect("/sign-in");
+        return documents.length > 0 ? documents[0] : redirect("/sign-in");
 
     } catch (e) {
         console.log(e);
