@@ -52,6 +52,7 @@ export const {
   ColumnsDirective,
   ColumnDirective,
   PagerComponent,
+  Inject
  
 } = grids;
 
@@ -80,3 +81,13 @@ export const ChipListComponent = pkg.ChipListComponent;
 export const ChipsDirective = pkg.ChipsDirective;
 export const ChipDirective = pkg.ChipDirective;
 
+import * as chartspkg from '@syncfusion/ej2-react-charts';
+
+export const  Category = chartspkg.Category;
+export const ChartComponent = chartspkg.ChartComponent;
+export const DataLabel = chartspkg.DataLabel;
+export const SplineAreaSeries = chartspkg.SplineAreaSeries;
+export const SeriesCollectionDirective = chartspkg.SeriesCollectionDirective;
+export const SeriesDirective = chartspkg.SeriesDirective;
+export const Tooltip = chartspkg.Tooltip;
+export const ColumnSeries = chartspkg.ColumnSeries;
