@@ -50,7 +50,8 @@ import * as grids from '@syncfusion/ej2-react-grids';
 export const {
   GridComponent,
   ColumnsDirective,
-  ColumnDirective
+  ColumnDirective,
+  PagerComponent,
  
 } = grids;
 
@@ -78,3 +79,4 @@ import * as pkg from '@syncfusion/ej2-react-buttons';
 export const ChipListComponent = pkg.ChipListComponent;
 export const ChipsDirective = pkg.ChipsDirective;
 export const ChipDirective = pkg.ChipDirective;
+
