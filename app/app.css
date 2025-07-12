@@ -1265,3 +1265,34 @@ body {
   color: white !important;
   border-color: #2564ebc6 !important;
 }
+
+.bg-card-1 {
+  background-image: url('/assets/images/card-img-1.png');
+}
+
+.bg-card-2 {
+  background-image: url('/assets/images/card-img-2.png');
+}
+
+.bg-card-3 {
+  background-image: url('/assets/images/card-img-3.png');
+}
+
+.bg-card-4 {
+  background-image: url('/assets/images/card-img-4.png');
+}
+
+.bg-card-5 {
+  background-image: url('/assets/images/card-img-5.png');
+}
+
+.bg-card-6 {
+  background-image: url('/assets/images/card-img-6.png');
+}
+
+.bg-cover {
+  background-size: cover;
+}
+.bg-center {
+  background-position: center;
+}

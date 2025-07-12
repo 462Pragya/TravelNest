@@ -91,3 +91,4 @@ export const SeriesCollectionDirective = chartspkg.SeriesCollectionDirective;
 export const SeriesDirective = chartspkg.SeriesDirective;
 export const Tooltip = chartspkg.Tooltip;
 export const ColumnSeries = chartspkg.ColumnSeries;
+

@@ -11,6 +11,8 @@ export const appwriteConfig = {
 const client = new Client()
     .setEndpoint(appwriteConfig.endpoint)
     .setProject(appwriteConfig.projectId)
+    .setLocale('en') // optional
+    .setSession('cookie'); // ✅ Add this line for session-based auth
 
 const account = new Account(client);
 const database = new Databases(client);

@@ -1,28 +1,34 @@
-import React from 'react'
-import { useNavigate } from 'react-router';
-import { logoutUser } from '~/appwrite/auth';
+import {Outlet, redirect, useNavigate} from "react-router";
+import {getExistingUser, logoutUser, storeUserData} from "~/appwrite/auth";
+import {account} from "~/appwrite/client";
+import { RootNavbar } from "~/components";
 
-const PageLayout = () => {
-    const navigate = useNavigate();
 
-    const handleLogout = async () => {
-        await logoutUser();
-        navigate('/sign-in');
-    };
-    return (
-        <>
-            <div>PageLayout</div>
+export async function clientLoader() {
+  try {
+    const user = await account.get();
+    if (!user) throw new Error("No session");
 
-            <button onClick={handleLogout} className='cursor-pointer'>
-                <img src="/assets/icons/logout.svg" alt="logout" referrerPolicy='no-referrer' className='size-6' />
-
-            </button>
-
-            <button onClick={() => navigate('/dashboard')}>
-                DashBoard
-            </button>
-        </>
-    )
+    const existingUser = await getExistingUser(user.$id);
+    return existingUser ?? await storeUserData();
+  } catch (e) {
+    console.log("Retrying session...", e);
+    // 🔁 Force page reload if session isn't ready
+    if (typeof window !== "undefined") {
+      window.location.reload();
+    }
+    return redirect('/sign-in');
+  }
 }
 
+
+const PageLayout = () => {
+    return (
+        <div className="bg-light-200">
+            <RootNavbar />
+            <Outlet />
+            
+        </div>
+    )
+}
 export default PageLayout

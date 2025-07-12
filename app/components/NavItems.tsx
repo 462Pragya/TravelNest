@@ -1,15 +1,16 @@
 
 import React from 'react'
 
-import { Link, NavLink, useLoaderData, useNavigate } from 'react-router';
+import { Link, NavLink, useLoaderData, useNavigate, useLocation } from 'react-router';
 import { logoutUser } from '~/appwrite/auth';
 import { sidebarItems } from '~/constants';
 import { cn } from '~/lib/utils';
 
-const NavItems = ({handleClick} : {handleClick?:() => void}) => {
+const NavItems = ({ handleClick }: { handleClick?: () => void }) => {
 
-    const user=useLoaderData();
-    const navigate= useNavigate();
+    const user = useLoaderData();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleLogout = async () => {
         await logoutUser();
@@ -24,24 +25,32 @@ const NavItems = ({handleClick} : {handleClick?:() => void}) => {
 
             <div className='container'>
                 <nav>
-                    {sidebarItems.map(({ id, href, icon, label }) => (
-                        <NavLink
-                            key={id}
-                            to={href}
-                        >
-                            {({ isActive }: { isActive: boolean }) => (
-                                <div className={cn('group nav-item', {
-                                    'bg-primary-100 text-white': isActive
-                                })} onClick={handleClick}>
-                                    <img src={icon} alt={label} className={`group-hover: brightness-0 size-0 group-hover:invert 
-                                        ${isActive ? 'brightness-0 invert' : 'text-dark-200'}`} />
+                    {sidebarItems.map(({ id, href, icon, label }) => {
+                        const isActive = location.pathname === href || location.pathname.startsWith('/' + href);
+
+                        return (
+                            <NavLink key={id} to={href}>
+                                <div
+                                    className={cn('group nav-item', {
+                                        'bg-blue-500 !text-white': isActive
+                                    })}
+                                    onClick={handleClick}
+                                >
+                                    <img
+                                        src={icon}
+                                        alt={label}
+                                        className={cn(
+                                            'transition-all duration-200',
+                                            isActive ? 'brightness-0 invert'  : 'filter-none', '!text-white',
+                                            'group-hover:brightness-0 group-hover:invert'
+                                        )}
+                                        
+                                    />
                                     {label}
                                 </div>
-                            )}
-
-                        </NavLink>
-
-                    ))}
+                            </NavLink>
+                        );
+                    })}
                 </nav>
 
                 <footer className='nav-footer'>

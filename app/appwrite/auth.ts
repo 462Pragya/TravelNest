@@ -70,6 +70,7 @@ export const loginWithGoogle = async () => {
             `${window.location.origin}/404`
 
         )
+    
 
     } catch (e) {
         console.log('loginWithGoogle', e);
